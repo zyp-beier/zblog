@@ -1,0 +1,1 @@
+const QUERY_SQL = `select * from  blog`

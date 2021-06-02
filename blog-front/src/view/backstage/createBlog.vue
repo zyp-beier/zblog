@@ -19,6 +19,9 @@
             <el-option v-for="item in labelList" :key="item.id" :value="item.id" :label="item.title"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="封面图">
+          <input-file></input-file>
+        </el-form-item>
         <el-form-item label="博客内容" prop="blogContent">
           <rich-text ref="richText" @callback='richTextContent'></rich-text>
         </el-form-item>
@@ -33,9 +36,10 @@
 
 <script>
 import backstageTitle from '../../components/backstageTitle.vue'
+import InputFile from '../../components/inputFile.vue';
 import RichText from '../../components/richText.vue';
 export default {
-  components: { backstageTitle, RichText },
+  components: { backstageTitle, RichText, InputFile },
   name: "createBlog",
   data() {
     return {

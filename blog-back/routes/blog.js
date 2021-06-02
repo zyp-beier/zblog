@@ -1,9 +1,12 @@
 const router = require('koa-router')()
+const { query } = require('../config/dbPOOL')
 const {blog} = require ('../store/blog')
 
 
-router.get('/bloglist', (ctx, next) => {
-  ctx.body = blog
+router.get('/bloglist', async (ctx, next) => {
+  let data = await query('select * from posts')
+  console.log(data)
+  ctx.body = data
 })
 
 

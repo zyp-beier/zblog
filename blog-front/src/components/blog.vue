@@ -9,10 +9,10 @@
             <div class="blog-content" v-html="item.content"></div>
             <div class="blog-info">
               <div class="blog-info-left">
-                <span style="margin-right: 2rem;"><img src="../assets/svg/date.svg"/>{{parseTime(item.createTime)}}</span>
-                <span><img src="../assets/svg/tag.svg" />{{item.tag}}</span>
+                <span style="margin-right: 2rem;"><img src="../assets/svg/date.svg"/>{{parseTime(item.create_at)}}</span>
+                <span><img src="../assets/svg/tag.svg" />{{item.label}}</span>
               </div>
-              <div class="blog-info-right"><span style="padding-right:10px; font-size:.7rem">热度:{{pageviews(item.pageviews)}}</span><img src="../assets/svg/signal.svg" alt=""></div>
+              <div class="blog-info-right"><span style="padding-right:10px; font-size:.7rem">热度:{{pageviews(item.pageView)}}</span><img src="../assets/svg/signal.svg" alt=""></div>
             </div>
         </div>
     </div>
@@ -67,13 +67,13 @@ export default {
     getBlogList() {
       GET_BLOG_LIST().then(res => {
         console.log(res)
-        let {totalPage, pageSize, current} = res
-        this.pagination = {
-          totalPage, 
-          pageSize,
-          current
-        }
-        this.blogList = res.blogList
+        // let {totalPage, pageSize, current} = res
+        // this.pagination = {
+        //   totalPage, 
+        //   pageSize,
+        //   current
+        // }
+        this.blogList = res.result
       }).catch(err => {
         console.log(err)
       })
@@ -127,6 +127,7 @@ export default {
     height: 100%
   }
   .blog-main {
+    width: 100%;
     height: 120px;
     display: flex;
     flex-direction: column;

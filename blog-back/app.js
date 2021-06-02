@@ -6,37 +6,37 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const mysql = require('mysql')
-const mysqlConfig = require('./config/mysql');
+// const mysql = require('mysql')
+// const mysqlConfig = require('./config/db');
 const index = require('./routes/index')
 const user = require('./routes/user')
 const blog = require('./routes/blog')
 
-const mysqlPool = mysql.createPool({
-  host: mysqlConfig.host,
-  port: mysqlConfig.port,
-  user: mysqlConfig.username,
-  password: mysqlConfig.password,
-  database: mysqlConfig.database,
-  insecureAuth: true
-})
+// const mysqlPool = mysql.createPool({
+//   host: mysqlConfig.host,
+//   port: mysqlConfig.port,
+//   user: mysqlConfig.username,
+//   password: mysqlConfig.password,
+//   database: mysqlConfig.database,
+//   insecureAuth: true
+// })
 
-mysqlPool.getConnection(function (err, connection) {
-  if (err) {
-    console.error("database connect err, ", err);
-    process.exit(-1);
-  }
-  console.info("database connect successful!")
+// mysqlPool.getConnection(function (err, connection) {
+//   if (err) {
+//     console.error("database connect err, ", err);
+//     process.exit(-1);
+//   }
+//   console.info("database connect successful!")
 
-  const sql = "select * from posts";
-  connection.query(sql, null, function (err, rows) {
-    if (err) {
-      console.log('query failed');
-      return
-    }
-    console.log('rows', rows);
-  });
-});
+//   const sql = "select * from posts";
+//   connection.query(sql, null, function (err, rows) {
+//     if (err) {
+//       console.log('query failed');
+//       return
+//     }
+//     console.log('rows', rows);
+//   });
+// });
 
 onerror(app)
 
