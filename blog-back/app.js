@@ -11,6 +11,7 @@ const logger = require('koa-logger')
 const index = require('./routes/index')
 const user = require('./routes/user')
 const blog = require('./routes/blog')
+const label = require('./routes/label')
 
 // const mysqlPool = mysql.createPool({
 //   host: mysqlConfig.host,
@@ -60,6 +61,7 @@ app.use(require('koa-static')(__dirname + '/public'))
 app.use(index.routes(), index.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())
+app.use(label.routes(), label.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

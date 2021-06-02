@@ -16,11 +16,11 @@
         </el-form-item>
         <el-form-item label="标签" prop="label">
           <el-select v-model="ruleForm.label" placeholder="请选择标签">
-            <el-option v-for="item in labelList" :key="item.id" :value="item.id" :label="item.title"></el-option>
+            <el-option v-for="item in labelList" :key="item.id" :value="item.id" :label="item.label"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="封面图">
-          <input-file @clllabck='file'></input-file>
+          <input-file @callback='file'></input-file>
         </el-form-item>
         <el-form-item label="博客内容" prop="blogContent">
           <rich-text ref="richText" @callback='richTextContent'></rich-text>
@@ -38,27 +38,16 @@
 import backstageTitle from '../../components/backstageTitle.vue'
 import InputFile from '../../components/inputFile.vue';
 import RichText from '../../components/richText.vue';
+import { GET_LABEL_LIST } from '../../api/label'
 export default {
   components: { backstageTitle, RichText, InputFile },
   name: "createBlog",
   data() {
     return {
-      labelList: [
-        {
-          id: 1,
-          title: 'javascript',
-        },
-        {
-          id: 2,
-          title: 'css',
-        },
-        {
-          id: 3,
-          title: 'html',
-        }
-      ],
+      labelList: [],
       ruleForm: {
-        title: ''
+        title: '',
+        coverImg: null
       },
       rules: {
         title: [
@@ -74,9 +63,20 @@ export default {
       }
     }
   },
+  created() {
+    this.getLabelList()
+  },
   methods: {
+    getLabelList() {
+      GET_LABEL_LIST().then(res => {
+        console.log(res)
+        this.labelList = res.result
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     file(file) {
-      console.log(file)
+      this.ruleForm.coverImg = file
     },
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -88,17 +88,17 @@ export default {
           }
         });
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-        this.$refs.richText.clearContent()
-      },
-      richTextContent(data) {
-        if(data){
-          this.ruleForm.blogContent = data
-          return
-        }
-        console.log('博客内容为空')
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.$refs.richText.clearContent()
+    },
+    richTextContent(data) {
+      if(data){
+        this.ruleForm.blogContent = data
+        return
       }
+      console.log('博客内容为空')
+    }
   }
 }
 </script>
