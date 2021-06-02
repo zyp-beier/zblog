@@ -20,7 +20,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="封面图">
-          <input-file></input-file>
+          <input-file @clllabck='file'></input-file>
         </el-form-item>
         <el-form-item label="博客内容" prop="blogContent">
           <rich-text ref="richText" @callback='richTextContent'></rich-text>
@@ -75,6 +75,9 @@ export default {
     }
   },
   methods: {
+    file(file) {
+      console.log(file)
+    },
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
