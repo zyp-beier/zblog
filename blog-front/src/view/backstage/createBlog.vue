@@ -39,6 +39,7 @@ import backstageTitle from '../../components/backstageTitle.vue'
 import InputFile from '../../components/inputFile.vue';
 import RichText from '../../components/richText.vue';
 import { GET_LABEL_LIST } from '../../api/label'
+import { CREATE_BLOG } from '../../api/blog'
 export default {
   components: { backstageTitle, RichText, InputFile },
   name: "createBlog",
@@ -81,7 +82,17 @@ export default {
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            console.log(this.ruleForm)
+            let {title, label, coverImg, blogContent} = this.ruleForm
+            let formData = new FormData()
+            formData.append('coverImg', coverImg);
+            formData.append('title', title)
+            formData.append('label', label)
+            formData.append('blogContent', blogContent)
+            CREATE_BLOG(formData).then(res => {
+              console.log(res)
+            }).catch( err => {
+              console.log(err)
+            })
           } else {
             console.log('error submit!!');
             return false;

@@ -1,18 +1,9 @@
 const router = require('koa-router')()
-const {index} = require('../store/index')
+const { query } = require('../config/dbPOOL')
 
 router.get('/index', async (ctx, next) => {
-  ctx.body = index
-})
-
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
+  let data = await query('SELECT * FROM pageviews')
+  ctx.body  = data
 })
 
 module.exports = router

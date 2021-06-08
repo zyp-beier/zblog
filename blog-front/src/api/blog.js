@@ -5,3 +5,9 @@ export function GET_BLOG_LIST() {
     url: '/bloglist'
   })
 }
+
+export function CREATE_BLOG() {
+  return request ({
+    url: '/blog/create'
+  })
+}

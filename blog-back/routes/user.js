@@ -3,7 +3,6 @@ const {userInfo} = require('../store/user')
 
 router.prefix('/userinfo')
 router.get('/',  async (ctx, next) => {
-
   ctx.body = userInfo
 })
 

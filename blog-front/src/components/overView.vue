@@ -30,8 +30,8 @@ export default {
   },
   created() {
     fetchList().then(res => {
-        // console.log(res)
-        this.overView = res
+        console.log(res)
+        this.overView = res.result
       }).catch(err => {
         console.log(err,'cuola')
       })
