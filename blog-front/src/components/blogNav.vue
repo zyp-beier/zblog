@@ -10,43 +10,34 @@
     </div>
     <div class="nav-list">
       <div class="nav-text">导航</div>
-      <div v-for="(item, index) in tagList" :key="index" class="nav-item">
-        <span><img src="../assets/svg/Vue.svg" alt=""></span><span>{{item.name}}({{item.number}})</span>
+      <div v-for="(item, index) in labelList" :key="index" class="nav-item">
+        <span><img src="../assets/svg/Vue.svg" alt=""></span><span>{{item.label}}({{item.number}})</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {GET_LABEL_LIST} from '../api/blog'
 export default {
   name: "blogNav",
   data() {
     return {
-      tagList: [
-        {
-          id: 1,
-          name: 'javascript',
-          number: 24,
-        },
-        {
-          id: 2,
-          name: 'css',
-          number: 54
-        },
-        {
-          id: 1,
-          name: 'javascript',
-          number: 24,
-        },
-        {
-          id: 2,
-          name: 'css',
-          number: 54
-        }
-      ]
+      labelList: []
     }
   },
   created() {
+    this.getLabelList()
+  },
+  methods: {
+    getLabelList() {
+      GET_LABEL_LIST().then(res => {
+        // console.log(res)
+        this.labelList = res.result
+      }).catch( err => {
+        console.log(err)
+      })
+    }
   }
 }
 </script>

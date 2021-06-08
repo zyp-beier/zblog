@@ -5,6 +5,11 @@ export function GET_BLOG_LIST() {
     url: '/bloglist'
   })
 }
+export function GET_LABEL_LIST() {
+  return request({
+    url: '/labellist'
+  })
+}
 
 export function CREATE_BLOG() {
   return request ({
