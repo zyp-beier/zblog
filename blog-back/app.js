@@ -10,7 +10,7 @@ const index = require('./routes/index')
 const user = require('./routes/user')
 const blog = require('./routes/blog')
 const label = require('./routes/label')
-
+const login = require('./routes/login')
 onerror(app)
 
 // middlewares
@@ -34,6 +34,7 @@ app.use(index.routes(), index.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())
 app.use(label.routes(), label.allowedMethods())
+app.use(login.routes(), login.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import {router} from './router'
 import App from './App.vue'
+import store from '@/store'
 import { 
   ElButton,
   ElSelect,
@@ -52,4 +53,4 @@ plugins.forEach(plugin => {
   app.use(plugin)
 })
 
-app.use(router).mount('#app')
+app.use(router).use(store).mount('#app')

@@ -1,5 +1,6 @@
 import axios from "axios"
-
+// import { getToken } from '../../utils/auth'
+// import store from '../store'
 // create an axios instance
 const service =  axios.create({
   // baseURL: process.env.BASE_API,
@@ -11,6 +12,7 @@ const service =  axios.create({
 
 // request interceptor
 service.interceptors.request.use(config => {
+  console.log(config)
   // 修正method
   if (config.method) {
     config.method = config.method.toLocaleLowerCase()
@@ -19,13 +21,11 @@ service.interceptors.request.use(config => {
   }
   // 请求添加token
   // if (store.getters.token) {
-  //   config.headers['Authorization'] = getToken()
+  //   config.headers['Authorization'] = 'getToken()'
   // }
   if (config.method === 'post') { // post 请求
-    //  临时添加
-    if (config.url === '/auth/login') {
-      // 加密
-      // config.data = toEncryptParams(config.data)
+    // 登录
+    if (config.url === '/login') {
       return config
     }
   } else {

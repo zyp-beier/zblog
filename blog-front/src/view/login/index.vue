@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { LOGIN } from '../../api/login'
+import {GET_USER_INFO} from '../../api/user'
 export default {
   name: "login",
   data() {
@@ -51,12 +53,25 @@ export default {
     login(formName) {
       this.$refs[formName].validate(vaild => {
         if (vaild) {
-          this.$router.push({
-            name: 'blogManagement'
-          })
+          this.getLoginInfo()
+          // this.$router.push({
+          //   name: 'blogManagement'
+          // })
         } else {
           console.log('err')
         }
+      })
+    },
+    getLoginInfo() {
+      LOGIN(this.loginForm).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+      GET_USER_INFO().then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
