@@ -1,7 +1,7 @@
-export default Session = {
-  set(key, value='', expires={expires: ''}) {
+export default {
+  set(key, value='', time, expires) {
     if (key) {
-      const _data = JSON.stringify({value: value, ...expires})
+      const _data = JSON.stringify({value, time, expires})
       sessionStorage.setItem(key, _data)
     } else {
       throw new Error('key 不能为空')
@@ -16,19 +16,20 @@ export default Session = {
       item = null
     }
     if (item) {
-      //有设置过期时间
-      if (item.expires) {
-        // 获取当前时间
+      if (item.expires && item.time) {
         const _date = new Date().getTime()
-        // 还没过期
-        if (Number(item.expires) - _date > 0) {
+        const oldDate = item.time
+        if (_date - oldDate < Number(item.expires)) {
+          // 还没过期
           return item.value
         } else {
           // 已过期
+          console.log('已过期')
           sessionStorage.removeItem(key)
           return null
         }
       } else {
+        sessionStorage.removeItem(key)
         return item.value || null
       }
     } else {

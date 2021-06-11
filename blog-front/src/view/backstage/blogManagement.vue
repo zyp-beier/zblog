@@ -26,11 +26,11 @@
           label="标签">
         </el-table-column>
         <el-table-column
-          prop="pageviews"
+          prop="pageView"
           label="热度">
         </el-table-column>
         <el-table-column
-          prop="createTime"
+          prop="create_at"
           label="创建时间">
         </el-table-column>
         <el-table-column
@@ -48,34 +48,26 @@
 
 <script>
 import backstageTitle from '@/components/backstageTitle.vue'
+import { GET_BLOG_LIST } from '../../api/blog'
 export default {
   components: { backstageTitle },
   name: "blogManagement",
   data() {
     return {
-      tableData:[
-        {
-          id: 1,
-          title: '这是一个标题',
-          label: 'javascript',
-          pageviews: 98,
-          createTime: 1620705143
-        },
-        {
-          id: 2,
-          title: '这是一个标题2',
-          label: 'javascript',
-          pageviews: 98,
-          createTime: 1620705143
-        },
-        {
-          id: 3,
-          title: '这是一个标题3',
-          label: 'javascript',
-          pageviews: 98,
-          createTime: 1620705143
-        }
-      ]
+      tableData:[]
+    }
+  },
+  created() {
+    this.getBlogList()
+  },
+  methods: {
+    getBlogList() {
+      GET_BLOG_LIST().then(res => {
+        console.log(res)
+        this.tableData = res.result
+      }).catch( err => {
+        console.log(err)
+      })
     }
   }
 }

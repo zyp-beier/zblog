@@ -3,10 +3,10 @@
     <div class="aboutUs-title">ABOUT US</div>
     <hr class="aboutUs-title-hr" />
     <div class="aboutUs-content">
-      <p>成功是每一人渴望的，而不断进步是实现成功的基石，是一个持续奋斗的过程，愿自己在每一天的生活中，无论是为人处事还是业务技能都进步1%</p>
+      <p>天行健，君子以自强不息。地势坤，君子以厚德载物。</p>
     </div>
     <div class="aboutUs-content">
-      <p>Success is every person's desire, and progress is the foundation for achieving successful, is a process of a continuous struggle let oneself in every day life, both in people skills and business skills progress 1%</p>
+      <p>Heaven is healthy, and a gentleman is constantly striving for self-improvement. The terrain is Kun, and a gentleman carries things with virtue.</p>
     </div>
     <div class="aboutUs-content contact-details">
       <p style="margin-right:1rem">QQ: 1528466340</p><p>EMAIL: 1528466340@qq.com</p>

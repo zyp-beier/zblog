@@ -29,7 +29,7 @@
 
 <script>
 import { LOGIN } from '../../api/login'
-import {GET_USER_INFO} from '../../api/user'
+import {setToken} from '../../../utils/auth'
 export default {
   name: "login",
   data() {
@@ -54,9 +54,6 @@ export default {
       this.$refs[formName].validate(vaild => {
         if (vaild) {
           this.getLoginInfo()
-          // this.$router.push({
-          //   name: 'blogManagement'
-          // })
         } else {
           console.log('err')
         }
@@ -64,12 +61,12 @@ export default {
     },
     getLoginInfo() {
       LOGIN(this.loginForm).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-      GET_USER_INFO().then(res => {
-        console.log(res)
+        if (res.status === 200) {
+          setToken(res.token, res.time, res.expires)
+          this.$router.push({
+            name: 'blogManagement'
+          })
+        }
       }).catch(err => {
         console.log(err)
       })
