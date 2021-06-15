@@ -1,7 +1,6 @@
 <template>
   <div>
     <div>
-      轮播图
       <swiper></swiper>
     </div>
     <about-us></about-us>

@@ -8,6 +8,9 @@
     <div class="aboutUs-content">
       <p>Heaven is healthy, and a gentleman is constantly striving for self-improvement. The terrain is Kun, and a gentleman carries things with virtue.</p>
     </div>
+    <div class="aboutUs-content">
+      <p>一切的依赖都是对自己的弱化和矮化，而顽强的特立独行才能培养和构建起自己由内心的力量支撑起来的独立的品格。人生旅途不可能总是一马平川，因而要坚信：无论身处何种境遇，都要顽强地生活在自己的意志里，只有那样自己的心灵才会寻觅到真正属于自己的归宿，只有这样，自己才会处变不惊地宁静而独立地生活；只有这样，自己在自己的心中和别人的眼里才会成为成熟的果敢的有个人魅力的无愧于自己的人！</p>
+    </div>
     <div class="aboutUs-content contact-details">
       <p style="margin-right:1rem">QQ: 1528466340</p><p>EMAIL: 1528466340@qq.com</p>
     </div>
