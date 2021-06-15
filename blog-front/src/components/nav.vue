@@ -2,46 +2,26 @@
   <div class="welcome-page">
     <div :class="{ sticky: scorllTop > 300 }" class="default">
       <div  class="nav-list" >
-        <div class="nav-item" ><a href="#">首页<span class="border"></span></a></div>
-        <div class="nav-item" ><a href="#">关于<span class="border"></span></a></div>
-        <div class="nav-item"><a href="#"><h1>blog</h1><span :class="[ scorllTop < 300 ? 'rotate': 'border']"></span></a></div>
-        <div class="nav-item"><a href="#">技能<span class="border"></span></a></div>
-        <div class="nav-item"><a href="#">更多<span class="border"></span></a></div>
+        <div class="nav-item" @click="navClick('index')"><a href="#">首页<span class="border"></span></a></div>
+        <div class="nav-item" @click="navClick('aboutUs')"><a href="javascript:void(0)">关于<span class="border"></span></a></div>
+        <div class="nav-item" @click="navClick('blog')"><a href="#"><h1>blog</h1><span :class="[ scorllTop < 300 ? 'rotate': 'border']"></span></a></div>
+        <div class="nav-item" @click="navClick('skill')"><a href="#">技能<span class="border"></span></a></div>
+        <div class="nav-item" @click="navClick('more')"><a href="#">更多<span class="border"></span></a></div>
       </div>
     </div>
-    <!-- <div class="image-list">
-      <div class="image-item" v-for="(item, index) in imgList" :key="index">
-        <div v-if="active === index">
-          <img :src="item.src" alt="" />
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
-import a from '../assets/img/20181124175204_217.jpg'
-import b from '../assets/img/20181124175205_100.jpg'
-import c from '../assets/img/20181124175530_602.jpg'
 export default {
-  name: "swiper",
+  name: "nav",
   components: {
 
     },
   data() {
     return {
-      active: 2,
-      imgList: [
-        {src: a},
-        {src: b},
-        {src: c}
-      ],
-      interval: null,
       scorllTop: 0
     }
-  },
-  created() {
-    this.interval = setInterval(this.int(), 2000)
   },
   mounted() {
     window.addEventListener('scroll', this.scroFun, true)
@@ -53,15 +33,8 @@ export default {
     scroFun() {
       this.scorllTop = document.documentElement.scrollTop || document.body.scrollTop;
     },
-    int() {
-      // if (this.active === -1) {
-      //   this.active = 2
-      // }
-      // this.active = --this.imgList.length
-      // console.log(this.active)
-      let a = this.imgList.length
-      --a
-      console.log(a)
+    navClick(val) {
+      this.$emit('callback', val)
     }
   },
   beforeUnmount() {
@@ -71,14 +44,8 @@ export default {
 </script>
 
 <style scoped>
-.welcome-page {
-  background-color: rgb(25, 23, 43);
-  height: 500px;
-}
-  .image-item {
-    /* transform:scaleX(1.2); */
-  }
   .default {
+    z-index: 999;
     transition: all .3s ease-in-out;
     position: fixed;
     top: 0;
@@ -89,7 +56,7 @@ export default {
     background-color: #fff;
   }
   .sticky {
-    transition: all .3s ease-in-out;
+    /* transition: all .3s ease-in-out; */
     height: 70px;
   }
   .nav-list {

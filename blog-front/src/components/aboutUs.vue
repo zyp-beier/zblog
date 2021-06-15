@@ -1,5 +1,5 @@
 <template>
-  <div class="aboutUsWrap">
+  <div id="aboutUsWrap">
     <div class="aboutUs-title">ABOUT US</div>
     <hr class="aboutUs-title-hr" />
     <div class="aboutUs-content">
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-  .aboutUsWrap {
+  #aboutUsWrap {
     margin: 0 auto;
     width:85%;
     padding: 20px 0;

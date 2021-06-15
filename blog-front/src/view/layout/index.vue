@@ -1,11 +1,20 @@
 <template>
   <div>
-    <div>
-      <swiper></swiper>
+     <div>
+      <Nav @callback='handleNav'></Nav>
     </div>
-    <about-us></about-us>
-    <over-view :previewData="previewData"></over-view>
-    <skill></skill>
+    <div id="index">
+      <banner></banner>
+    </div>
+    <div id="aboutUs">
+      <about-us ref="aboutUs"></about-us>
+    </div>
+    <div>
+      <over-view :previewData="previewData"></over-view>
+    </div>
+    <div id='skill'>
+      <skill></skill>
+    </div>
     <honeycomb></honeycomb>
     <Footer></Footer>
   </div>
@@ -17,9 +26,10 @@ import Footer from '../../components/footerPage.vue'
 import Honeycomb from '../../components/honeycomb.vue'
 import OverView from '../../components/overView.vue'
 import Skill from '../../components/skill.vue'
-import Swiper from '../../components/swiper.vue'
+import Nav from '../../components/nav.vue'
+import Banner from '../../components/banner.vue'
 export default {
-  components: { aboutUs, OverView, Skill, Honeycomb, Footer, Swiper },
+  components: { aboutUs, OverView, Skill, Honeycomb, Footer, Nav, Banner },
   name: "layout",
   data() {
     return {
@@ -29,7 +39,15 @@ export default {
   created() {
     
   },
-    
+  methods: {
+    handleNav(e) {
+      let offsetTop = (document.getElementById(e) && document.getElementById(e).offsetTop) || 0
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth"
+      })
+    }
+  }
 }
 </script>
 
