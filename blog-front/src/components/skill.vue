@@ -87,13 +87,13 @@ export default {
   .skill-item-des {
     font-size: .5rem;
     color: #666;
+    padding-bottom: 3rem;
   }
   .sector {
-    margin: 0 auto;
+    margin: 1rem auto 0 auto;
     text-align: center;
     width: 0;
     height: 0;
-    border-top: 100px solid transparent;
     border-bottom: 100px solid #eee;
     border-left: 100px solid transparent;
     border-right: 100px solid  transparent;
