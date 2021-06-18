@@ -42,6 +42,9 @@ export default {
       hidden: true
     }
   },
+  created() {
+    this.hidden = window.screen.width > 450 ? true : false
+  },
   methods: {
     archive() {
       this.$router.push({
@@ -49,9 +52,6 @@ export default {
     })
     },
   },
-  created() {
-    this.hidden = window.screen.width > 450 ? true : false
-  }
 }
 </script>
 

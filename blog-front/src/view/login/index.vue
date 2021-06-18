@@ -41,7 +41,6 @@ export default {
       rules: {
         username: [
           {required: true, message: '请输入用户名', trigger: 'blur'},
-          {min: 3, max: 5, message: '长度在3到5个字符之间', trigger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入密码',trigger: 'blur'}
@@ -66,6 +65,11 @@ export default {
           this.$router.push({
             name: 'blogManagement'
           })
+          let {nickname, personalityLabel } = res.result[0]
+          let userinfo = JSON.stringify({nickname, personalityLabel })
+          window.sessionStorage.setItem('userInfo', userinfo)
+        } else {
+          this.$message.error(res.message)
         }
       }).catch(err => {
         console.log(err)

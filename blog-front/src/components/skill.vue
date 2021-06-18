@@ -19,12 +19,12 @@ export default {
     return {
       skills: [
         {
-          name: 'vue',
+          name: 'Html&Css',
           description: 'Cras sagittis elit vitae lacus consequat, hendrerit imperdiet mi interdum. Nulla a porta quam. Phasellus in lorem.',
           iconSrc: '../assets/svg/Vue.svg' 
         },
         {
-          name: 'react',
+          name: 'Ps',
           description: 'Cras sagittis elit vitae lacus consequat, hendrerit imperdiet mi interdum. Nulla a porta quam. Phasellus in lorem.',
           iconSrc: '../assets/svg/react.svg'
         },
@@ -79,6 +79,7 @@ export default {
     margin:0 auto;
     padding: 0 1rem;
     text-align: center;
+    position: relative;
   }
   .skill-item-name {
     font-size: 1.2rem;
@@ -99,8 +100,16 @@ export default {
     border-right: 100px solid  transparent;
     border-radius: 50%;
   }
-  .skill-item:hover .sector{
+  .sector:hover {
      border-bottom: 100px solid #EF6661;
      color: white;
+  }
+  .sector img {
+    position: absolute;
+    top: 3.5rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
   }
 </style>

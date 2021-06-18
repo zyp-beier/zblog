@@ -1,9 +1,11 @@
 const router = require('koa-router')()
-const {userInfo} = require('../store/user')
-
+const {query} = require('../config/dbPool')
 router.prefix('/userinfo')
 router.get('/',  async (ctx, next) => {
-  ctx.body = userInfo
+  ctx.body = {
+    name: '123',
+    title: 234
+  }
 })
 
 router.get('/userinfo/update', function (ctx, next) {

@@ -15,14 +15,11 @@
         </div>
         <el-dropdown>
           <span class="el-dropdown-link user-name">
-            zyp_beier<i class="el-icon-arrow-down el-icon--right"></i>
+            {{userInfo.nickname}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>黄金糕</el-dropdown-item>
-              <el-dropdown-item divided>狮子头</el-dropdown-item>
-              <el-dropdown-item divided>螺蛳粉</el-dropdown-item>
-              <el-dropdown-item divided>退出登录</el-dropdown-item>
+              <el-dropdown-item divided @click="logOut">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -35,10 +32,12 @@
 </template>
 
 <script>
+import {removeToken} from '../../utils/auth'
 export default {
   name: "backstageTitle",
   data() {
     return {
+      userInfo: {},
       navigationList: [
         {
           id: 1,
@@ -56,6 +55,16 @@ export default {
           router: 'blogSettings'
         }
       ]
+    }
+  },
+  created() {
+    let info = window.sessionStorage.getItem('userInfo') || ''
+    this.userInfo = JSON.parse(info)
+  },
+  methods: {
+    logOut() {
+      this.$router.replace({name: 'login'})
+      removeToken()
     }
   }
 }
