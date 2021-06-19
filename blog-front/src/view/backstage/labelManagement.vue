@@ -18,12 +18,19 @@
           label="标签">
         </el-table-column>
         <el-table-column
+          prop="number"
+          label="文章数量">
+        </el-table-column>
+        <el-table-column
           prop="icon"
           label="icon">
         </el-table-column>
         <el-table-column
           prop="createTime"
           label="创建时间">
+          <template #default="scope">
+            {{parseTime(scope.row.createTime)}}
+          </template>
         </el-table-column>
         <el-table-column
           label="操作">
@@ -56,11 +63,14 @@
 <script>
 import backstageTitle from '@/components/backstageTitle.vue'
 import InputFile from '@/components/inputFile.vue';
+import { GET_LABEL_LIST } from '../../api/label'
+import {parseTime} from '../../../utils/index'
 export default {
   components: { backstageTitle, InputFile },
   name: "labelManagement",
   data() {
     return {
+      parseTime: null,
       tableData:[
         {
           id: 1,
@@ -106,7 +116,19 @@ export default {
       }
     }
   },
+  created(){
+    this.parseTime = parseTime
+    this.getLabelList()
+  },
   methods: {
+    getLabelList() {
+      GET_LABEL_LIST().then(res => {
+        console.log(res)
+        this.tableData = res.result
+      }).catch(err => {
+        console.log(err)
+      })
+    },
      handleRemove(file, fileList) {
         console.log('文件移除',file, fileList);
       },

@@ -9,7 +9,7 @@
             <div class="blog-content" v-html="item.content"></div>
             <div class="blog-info">
               <div class="blog-info-left">
-                <span style="margin-right: 2rem;"><img src="../assets/svg/date.svg"/>{{parseTime(item.create_at)}}</span>
+                <span style="margin-right: 2rem;"><img src="../assets/svg/date.svg"/>{{parseTime(item.create_at, '{y}-{m}-{d}')}}</span>
                 <span><img src="../assets/svg/tag.svg" />{{item.label}}</span>
               </div>
               <div class="blog-info-right"><span style="padding-right:10px; font-size:.7rem">热度:{{pageviews(item.pageView)}}</span><img src="../assets/svg/signal.svg" alt=""></div>

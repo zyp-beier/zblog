@@ -2,7 +2,7 @@ export function parseTime(time, cFormat) {
   if(arguments.length === 0) {
     return null
   }
-  const format = cFormat || '{y}-{m}-{d}'
+  const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}'
   let date
   if (typeof time === 'object') {
     date = time
@@ -14,9 +14,11 @@ export function parseTime(time, cFormat) {
     y: date.getFullYear(),
     m: date.getMonth() + 1,
     d: date.getDate(),
-    h: date.getHours()
+    h: date.getHours(),
+    i: date.getMinutes(),
+    s: date.getSeconds()
   }
-  const time_str = format.replace(/{(y|m|d)+}/g, (result, key) => {
+  const time_str = format.replace(/{(y|m|d|h|i|s)+}/g, (result, key) => {
     let value = formatObj[key]
     // if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value ]}
     if (result.length > 0 && value < 10) {
