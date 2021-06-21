@@ -14,9 +14,10 @@ const login = require('./routes/login')
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}))
+// app.use(bodyparser({
+//   enableTypes:['json', 'form', 'text']
+// }))
+app.use(bodyparser())
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
@@ -28,16 +29,16 @@ app.use(blog.routes(), blog.allowedMethods())
 app.use(label.routes(), label.allowedMethods())
 app.use(login.routes(), login.allowedMethods())
 
-app.use((ctx, next) => {
-  return next().catch((err) => {
-    if (err.status === 401) {
-      ctx.status = 401;
-      ctx.body = 'Protected resource, use Authorization header to get access\n';
-    } else {
-      console.log('出错')
-    }
-  })
-})
+// app.use((ctx, next) => {
+//   return next().catch((err) => {
+//     if (err.status === 401) {
+//       ctx.status = 401;
+//       ctx.body = 'Protected resource, use Authorization header to get access\n';
+//     } else {
+//       console.log('出错')
+//     }
+//   })
+// })
 
 app.use(koajwt({secret: 'blog'}).unless({
   // 登录接口不需要验证

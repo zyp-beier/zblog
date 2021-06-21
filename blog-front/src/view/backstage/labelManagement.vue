@@ -63,7 +63,7 @@
 <script>
 import backstageTitle from '@/components/backstageTitle.vue'
 import InputFile from '@/components/inputFile.vue';
-import { GET_LABEL_LIST } from '../../api/label'
+import { GET_LABEL_LIST, CREATE_LABEL } from '../../api/label'
 import {parseTime} from '../../../utils/index'
 export default {
   components: { backstageTitle, InputFile },
@@ -71,30 +71,11 @@ export default {
   data() {
     return {
       parseTime: null,
-      tableData:[
-        {
-          id: 1,
-          label: 'javascript',
-          icon: 98,
-          createTime: 1620705143
-        },
-        {
-          id: 2,
-          label: 'css',
-          icon: 98,
-          createTime: 1620705143
-        },
-        {
-          id: 3,
-          label: 'aa',
-          icon: 98,
-          createTime: 1620705143
-        }
-      ],
+      tableData:[],
       dialogLabel: false,
       formLabel: {
         name: '',
-        labelICon: null
+        labelIcon: null
       },
       fileList: [],
       rules: {
@@ -111,7 +92,7 @@ export default {
         this.$refs.inputFile.clearImg()
         this.formLabel = {
           name: '',
-          labelICon: null
+          labelIcon: null
         }
       }
     }
@@ -123,41 +104,44 @@ export default {
   methods: {
     getLabelList() {
       GET_LABEL_LIST().then(res => {
-        console.log(res)
+        // console.log(res)
         this.tableData = res.result
       }).catch(err => {
         console.log(err)
       })
     },
-     handleRemove(file, fileList) {
-        console.log('文件移除',file, fileList);
-      },
-      handlePreview(file) {
-        console.log('上传钩子',file);
-      },
-      labelEdit (data) {
-        console.log(data)
-        this.dialogLabel = true
-      },
-      labelRemove(index) {
-        this.tableData.splice(index, 1)
-      },
-      inputFileValue(file) {
-        this.formLabel.labelICon = file
-      },
-      crateLabel(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            if (!this.formLabel.labelICon) {
-              this.$message('Icon不能为空')
-            } else {
-              console.log('success')
-            }
+    labelEdit (data) {
+      console.log(data)
+      this.dialogLabel = true
+    },
+    labelRemove(index) {
+      this.tableData.splice(index, 1)
+    },
+    inputFileValue(file) {
+      this.formLabel.labelIcon = file
+    },
+    crateLabel(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          if (!this.formLabel.labelIcon) {
+            this.$message('Icon不能为空')
           } else {
-            console.log('err')
+            let {name, labelIcon} = this.formLabel
+            let formData = new FormData()
+            formData.append('name', name)
+            formData.append('labelIcon', labelIcon)
+            console.log(formData)
+            CREATE_LABEL(formData).then(res => {
+              console.log(res)
+            }).catch( err => {
+              console.log(err)
+            })
           }
-        })
-      }
+        } else {
+          console.log('err')
+        }
+      })
+    }
   }
 }
 </script>

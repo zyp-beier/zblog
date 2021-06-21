@@ -5,3 +5,11 @@ export function GET_LABEL_LIST() {
     url: '/label/list'
   })
 }
+// 创建标签
+export function CREATE_LABEL(data) {
+  return request({
+    url: '/label/create',
+    method: 'post',
+    data,
+  })
+}

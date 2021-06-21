@@ -29,6 +29,9 @@ service.interceptors.request.use(config => {
     if (config.url === '/login') {
       return config
     }
+    // config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    config.headers['Content-Type'] = 'multipart/form-data'
+    return config
   } else {
     // get请求
     return config
