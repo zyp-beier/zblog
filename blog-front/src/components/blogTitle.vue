@@ -4,9 +4,9 @@
       <div class="blog-left">
         <div class="user-info">
           <div class="user-avatar">
-            <img src="../assets/img/overViewBg.jpg" alt="">
+            <img src="../assets/img/avatar.jpg" alt="">
           </div>
-          <div class="user-name">{{userInfo.userName}}</div>
+          <div class="user-name">{{userInfo.nickname}}</div>
         </div>
         <div class="title-nav">
           <span class="title-main" @click="$router.push({name: 'blogList'})">主页</span>                                       
@@ -16,7 +16,7 @@
       <div  v-if='showSearch'>
         <div v-if="hidden" class="blog-right">
           <el-input placeholder="请输入要查询的内容" clearable v-model="queryData"></el-input>
-          <el-button>搜索</el-button>
+          <el-button @click="search">搜索</el-button>
         </div>
       </div>
     </div>
@@ -51,6 +51,13 @@ export default {
       name: 'archive'
     })
     },
+    search() {
+      if (!this.queryData) {
+        this.$message.info('搜索内容不能为空')
+        return
+      }
+      this.$emit('searchBlog', this.queryData)
+    }
   },
 }
 </script>

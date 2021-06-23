@@ -34,6 +34,9 @@ import {parseTime} from '../../utils/index'
 import { GET_BLOG_LIST} from '../api/blog'
 export default {
   name: "blog",
+  props: {
+    queryData: String
+  },
   data() {
     return {
       blogList:[],
@@ -42,7 +45,7 @@ export default {
     }
   },
   created() {
-    this.getBlogList()
+    this.getBlogList(this.queryData)
     this.parseTime = parseTime
   },
   computed: {
@@ -63,9 +66,14 @@ export default {
       }
     }
   },
+  watch:{
+    queryData(newVal) {
+      this.getBlogList(newVal)
+    }
+  },
   methods: {
-    getBlogList() {
-      GET_BLOG_LIST().then(res => {
+    getBlogList(queryData = '') {
+      GET_BLOG_LIST({queryData}).then(res => {
         console.log(res)
         // let {totalPage, pageSize, current} = res
         // this.pagination = {

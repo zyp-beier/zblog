@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import {GET_LABEL_LIST} from '../api/blog'
+import {GET_LABEL_LIST} from '../api/label'
 export default {
   name: "blogNav",
   data() {

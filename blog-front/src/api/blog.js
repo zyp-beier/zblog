@@ -1,13 +1,10 @@
 import request from '../api/request'
 
-export function GET_BLOG_LIST() {
+//获取博客列表 & 搜索博客
+export function GET_BLOG_LIST(data) {
   return request({
-    url: '/bloglist'
-  })
-}
-export function GET_LABEL_LIST() {
-  return request({
-    url: '/labellist'
+    url: '/bloglist',
+    params: data
   })
 }
 

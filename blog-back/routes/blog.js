@@ -1,14 +1,14 @@
 const router = require('koa-router')()
 const { query } = require('../config/dbPOOL')
 
-// router.prefix('/blog')
 router.get('/bloglist', async (ctx, next) => {
-  let data = await query('SELECT * FROM posts')
-  ctx.body = data
-})
-
-router.get('/labellist', async (ctx, next) => {
-  let data = await query('SELECT * FROM labelList')
+  let data
+  if (ctx.query && ctx.query.queryData) {
+    let {queryData} = ctx.query
+    data = await query(`SELECT * FROM posts WHERE title LIKE '%${queryData}%' || content LIKE '%${queryData}%'`)
+  } else {
+    data = await query('SELECT * FROM posts')
+  }
   ctx.body = data
 })
 
