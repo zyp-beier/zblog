@@ -1,27 +1,27 @@
 <template>
   <div class="archive-wrap">
-    <blog-title></blog-title>
-    <!-- <div class="archive-list">
-      <div class="archive-item" v-for="(item,index) in archiveList" :key="index">
-        <div>{{item.time}}({{item.blogsNumber}})</div>
-      </div>
-    </div> -->
+    <blog-title :user-info="userInfo" :showSearch='false'></blog-title>
     <el-row class="archive-list">
       <el-col  :xs="8" :sm="8" :md="6" :lg="4" class="archive-item" v-for="(item,index) in archiveList" :key="index">
          <div>{{item.time}}({{item.blogsNumber}})</div>
       </el-col>
     </el-row>
+    <footer-page></footer-page>
   </div>
 </template>
 
 <script>
 import blogTitle from '../../components/blogTitle.vue'
 import {parseTime} from '../../../utils/index'
+import FooterPage from '../../components/footerPage.vue'
 export default {
-  components: { blogTitle },
+  components: { blogTitle, FooterPage },
   name: "archive",
   data() {
     return {
+      userInfo: {
+        nickname: 'zyp_beier'
+      },
         archiveList:[
           {
             id: 1,

@@ -19,8 +19,8 @@ export default {
   mounted() {
     let offsetHeight = document.documentElement.offsetHeight || 0
     if (window.innerHeight > offsetHeight) {
-        this.isFixed =  true
-      }
+      this.isFixed =  true
+    }
   },
   methods: {
     login() {
