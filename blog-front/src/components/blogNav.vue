@@ -10,7 +10,7 @@
     </div>
     <div class="nav-list">
       <div class="nav-text">导航</div>
-      <div v-for="(item, index) in labelList" :key="index" class="nav-item">
+      <div v-for="(item, index) in labelList" :key="index" class="nav-item" @click="handleLabel(item)">
         <span><img src="../assets/svg/Vue.svg" alt=""></span><span>{{item.label}}({{item.number}})</span>
       </div>
     </div>
@@ -37,6 +37,9 @@ export default {
       }).catch( err => {
         console.log(err)
       })
+    },
+    handleLabel(item) {
+      this.$emit('handleLabel', item)
     }
   }
 }
@@ -77,6 +80,7 @@ export default {
     color: #666;
     padding: 20px;
     transition: margin .3s ease-out;
+    cursor:pointer
   }
   .nav-item:hover, .nav-item:active{
     margin-left: 1rem;

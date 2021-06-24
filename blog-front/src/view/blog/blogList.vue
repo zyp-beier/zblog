@@ -4,8 +4,8 @@
       <blog-title :user-info="userInfo" @searchBlog='searchBlog'></blog-title>
     </div>
     <div class="blog-main">
-      <blog-nav></blog-nav>
-      <blog :queryData='queryData'></blog>
+      <blog-nav @handleLabel='handleLabel'></blog-nav>
+      <blog :queryData='queryData' :labelData='labelData'></blog>
     </div>
      <Footer></Footer>
   </div>
@@ -25,6 +25,7 @@ export default {
         nickname: 'zyp_beier'
       },
       queryData: '',
+      labelData: '',
       pagin: {
         pageSize: 15,
         total: 0,
@@ -37,6 +38,9 @@ export default {
   methods: {
     searchBlog(queryData) {
       this.queryData = queryData
+    },
+    handleLabel(item) {
+      this.labelData = item.label
     }
   },
 }

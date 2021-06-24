@@ -35,7 +35,8 @@ import { GET_BLOG_LIST} from '../api/blog'
 export default {
   name: "blog",
   props: {
-    queryData: String
+    queryData: String,
+    labelData: String
   },
   data() {
     return {
@@ -69,11 +70,14 @@ export default {
   watch:{
     queryData(newVal) {
       this.getBlogList(newVal)
+    },
+    labelData(newVal) {
+      this.getBlogList('',newVal)
     }
   },
   methods: {
-    getBlogList(queryData = '') {
-      GET_BLOG_LIST({queryData}).then(res => {
+    getBlogList(queryData = '',labelData = '') {
+      GET_BLOG_LIST({queryData, labelData}).then(res => {
         console.log(res)
         // let {totalPage, pageSize, current} = res
         // this.pagination = {
