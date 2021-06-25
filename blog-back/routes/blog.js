@@ -4,7 +4,6 @@ const { query } = require('../config/dbPOOL')
 router.get('/bloglist', async (ctx, next) => {
   let data
   if (ctx.query) {
-    console.log(ctx.query)
     if (ctx.query.queryData) {
       let { queryData } = ctx.query
       data = await query(`SELECT * FROM posts WHERE title LIKE '%${queryData}%' || content LIKE '%${queryData}%'`)
@@ -14,6 +13,15 @@ router.get('/bloglist', async (ctx, next) => {
     } else {
       data = await query('SELECT * FROM posts')
     }
+  }
+  ctx.body = data
+})
+
+router.get('/blog/detail', async (ctx, next) => {
+  let data
+  let blogId = ctx.query.blogId || ''
+  if(blogId) {
+    data = await query(`SELECT * FROM posts WHERE id=${blogId}`)
   }
   ctx.body = data
 })

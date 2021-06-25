@@ -1,10 +1,10 @@
 <template>
   <div class="blogDetail-wrap">
-    <blog-title :showSearch='false'></blog-title>
+    <blog-title :showSearch='false' :user-info="userInfo"></blog-title>
     <div class="blog-main">
-      <h3 class="blog-title">{{blogdetail.title}}</h3>
+      <h3 class="blog-title">{{blogDetail.title}}</h3>
       <div class="blog-content">
-        <div v-html="blogdetail.content"></div>
+        <div v-html="blogDetail.content"></div>
       </div>
     </div>
     <footer-page></footer-page>
@@ -14,15 +14,30 @@
 <script>
 import blogTitle from '../../components/blogTitle.vue'
 import FooterPage from '../../components/footerPage.vue'
+import { GET_BLOG_DETAIL } from '../../api/blog'
+import { reactive, toRefs} from 'vue'
+import { useRoute } from 'vue-router'
 export default {
-  components: { blogTitle, FooterPage },
+  components: { blogTitle,FooterPage },
   name: "blogDetail",
-  data() {
-    return {
-      blogdetail: {
-        title: '这是一个blogdetil',
-        content: '<p><strong><em><span style="color:#E53333;">这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海这就是爱，可能回忆掉进了大海Think Different</span></em></strong></p><p><img src="/ke4/attached/1241601537255682809.jpg" alt="" width="250" height="176" title="" align="" /></p><p>- Apple Inc.</p>'
+  setup() {
+    let state = reactive({
+      blogDetail: {},
+      userInfo: {
+        nickname: 'ZYP_beier'
       }
+    })
+    let router = useRoute()
+    let blogId = router.params.blogId || ''
+    if (!blogId) return
+    const getBlogDetail = async () => {
+      let { result } = await GET_BLOG_DETAIL(blogId)
+      state.blogDetail = result[0]
+    }
+    getBlogDetail()
+    return {
+      ...toRefs(state),
+      getBlogDetail
     }
   }
 }
