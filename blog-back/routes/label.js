@@ -9,8 +9,8 @@ router.get('/list', async (ctx, next) => {
 })
 router.post('/create', async(ctx, next) => {
     // console.log(ctx)
-    console.log(ctx.request.body)
-
+    console.log(ctx.request.files)
+    ctx.body = ctx.request.files
 })
 
 module.exports = router

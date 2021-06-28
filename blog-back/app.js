@@ -3,6 +3,7 @@ const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const koaBody = require('koa-body')
 const logger = require('koa-logger')
 const koajwt = require('koa-jwt')
 
@@ -14,10 +15,13 @@ const login = require('./routes/login')
 onerror(app)
 
 // middlewares
-// app.use(bodyparser({
-//   enableTypes:['json', 'form', 'text']
-// }))
-app.use(bodyparser())
+app.use(bodyparser({
+  enableTypes:['json', 'form', 'text']
+}))
+
+app.use(koaBody({
+  multipart: true
+}));
 app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))

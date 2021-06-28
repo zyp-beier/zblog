@@ -20,7 +20,7 @@ service.interceptors.request.use(config => {
   }
   // 请求添加token
   if (getToken()) {
-    config.headers['Authorization'] = getToken()
+    config.headers['Authorization'] = 'Bearer ' + getToken()
   } else {
     console.log('no token')
   }
