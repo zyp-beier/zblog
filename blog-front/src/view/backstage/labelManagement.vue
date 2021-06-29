@@ -135,6 +135,7 @@ export default {
               console.log(res)
               if (res.status === 200) {
                 this.$message.success(res.message)
+                this.getLabelList()
               }
             }).catch( err => {
               console.log(err)

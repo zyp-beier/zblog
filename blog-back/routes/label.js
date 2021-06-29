@@ -13,16 +13,16 @@ router.get('/list', async (ctx, next) => {
 })
 
 router.post('/create', async(ctx, next) => {
-  const file = ctx.request.files.file
-  console.log(ctx)
+  let { files, body } = ctx.request
+  const file = files && files.file
+  const name = body.name
   const fileName = `${new Date().getTime()}` + `${file.name}`
   // 创建路径
   let filePath = path.join(__dirname, '../public/upload/') + fileName
   try {
     await rename(file.path, filePath)
     let date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
-    let data = await query(`INSERT INTO labelList (createTime, icon, label, number) VALUES ('${date}', '${fileName}', '${file.name}', 0)`)
-    console.log('data', data)
+    let data = await query(`INSERT INTO labelList (createTime, icon, label, number) VALUES ('${date}', '${fileName}', '${name}', 0)`)
     if (data.status === 200) {
       ctx.body = {
         status: 200,
