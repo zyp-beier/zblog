@@ -129,12 +129,17 @@ export default {
             let {name, labelIcon} = this.formLabel
             let formData = new FormData()
             formData.append('name', name)
-            formData.append('labelIcon', labelIcon)
+            formData.append('file', labelIcon)
             console.log(formData)
             CREATE_LABEL(formData).then(res => {
               console.log(res)
+              if (res.status === 200) {
+                this.$message.success(res.message)
+              }
             }).catch( err => {
               console.log(err)
+            }).finally(() => {
+              this.dialogLabel = false
             })
           }
         } else {

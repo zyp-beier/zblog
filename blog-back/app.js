@@ -15,9 +15,9 @@ const login = require('./routes/login')
 onerror(app)
 
 // middlewares
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}))
+// app.use(bodyparser({
+//   enableTypes:['json', 'form', 'text']
+// }))
 
 app.use(koaBody({
   multipart: true

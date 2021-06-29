@@ -3,6 +3,7 @@ const { query } = require('../config/dbPool')
 const {Token} = require('../utils/jwt')
 
 router.post('/login', async (ctx, next) => {
+  console.log(ctx.request.body)
   const {username, password} = ctx.request.body
   let data = await query(`SELECT * FROM users WHERE username='${username}';`)
   let status = 0
