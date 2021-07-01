@@ -36,7 +36,7 @@
           label="操作">
           <template #default="scoped">
             <el-button type="warning" @click="labelEdit(scoped.row)" size="small" plain>更改</el-button>
-            <el-button type="danger" @click="labelRemove(scoped.$index)" size="small" plain>删除</el-button>
+            <el-button type="danger" @click="labelRemove(scoped.row)" size="small" plain>删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -44,7 +44,7 @@
     <el-dialog title="新建标签" v-model="dialogLabel" width='40%' center>
       <el-form :model="formLabel" label-width="80px" :rules="rules" ref="labelRef">
         <el-form-item label="标签名称" prop="name">
-          <el-input v-model="formLabel.name"></el-input>
+          <el-input v-model="formLabel.label"></el-input>
         </el-form-item>
         <el-form-item label="icon" prop="labelIcon">
           <input-file ref="inputFile" @callback='inputFileValue'></input-file>
@@ -63,7 +63,7 @@
 <script>
 import backstageTitle from '@/components/backstageTitle.vue'
 import InputFile from '@/components/inputFile.vue';
-import { GET_LABEL_LIST, CREATE_LABEL } from '../../api/label'
+import { GET_LABEL_LIST, CREATE_LABEL, REMOVE_LABEL } from '../../api/label'
 import {parseTime} from '../../../utils/index'
 export default {
   components: { backstageTitle, InputFile },
@@ -74,15 +74,16 @@ export default {
       tableData:[],
       dialogLabel: false,
       formLabel: {
-        name: '',
+        label: '',
         labelIcon: null
       },
       fileList: [],
       rules: {
-        name: [
+        label: [
           {required: true, message: '标签名称不能为空', trigger: 'blur'}
         ]
-      }
+      },
+      labelDetail: {}
     }
   },
   watch: {
@@ -112,10 +113,20 @@ export default {
     },
     labelEdit (data) {
       console.log(data)
+      this.formLabel = data
       this.dialogLabel = true
     },
-    labelRemove(index) {
-      this.tableData.splice(index, 1)
+    labelRemove(label) {
+      if (!label.id) return
+      let labelId = label.id
+      REMOVE_LABEL({
+        labelId,
+      }).then(res => {
+        if (res.status === 200) {
+          this.$message.info(res.message) 
+          this.getLabelList()
+        }
+      })
     },
     inputFileValue(file) {
       this.formLabel.labelIcon = file
@@ -126,13 +137,12 @@ export default {
           if (!this.formLabel.labelIcon) {
             this.$message('Icon不能为空')
           } else {
-            let {name, labelIcon} = this.formLabel
+            let {label, labelIcon} = this.formLabel
             let formData = new FormData()
-            formData.append('name', name)
+            formData.append('label', label)
             formData.append('file', labelIcon)
-            console.log(formData)
             CREATE_LABEL(formData).then(res => {
-              console.log(res)
+              // console.log(res)
               if (res.status === 200) {
                 this.$message.success(res.message)
                 this.getLabelList()
