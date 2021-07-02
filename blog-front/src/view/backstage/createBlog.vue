@@ -90,6 +90,10 @@ export default {
             formData.append('blogContent', blogContent)
             CREATE_BLOG(formData).then(res => {
               console.log(res)
+              if (res.status === 200) {
+                this.$message.success(res.message)
+                this.$router.back()
+              }
             }).catch( err => {
               console.log(err)
             })

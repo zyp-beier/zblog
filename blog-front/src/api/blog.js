@@ -8,9 +8,11 @@ export function GET_BLOG_LIST(data) {
   })
 }
 
-export function CREATE_BLOG() {
+export function CREATE_BLOG(data) {
   return request ({
-    url: '/blog/create'
+    url: '/blog/create',
+    method: 'post',
+    data
   })
 }
 
