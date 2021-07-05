@@ -25,3 +25,14 @@ export function GET_BLOG_DETAIL(blogId) {
     }
   })
 }
+
+// 删除博客
+export function REMOVE_BLOG(blogId) {
+  return request({
+    url: '/blog/remove',
+    method: 'delete',
+    params: {
+      blogId
+    }
+  })
+}

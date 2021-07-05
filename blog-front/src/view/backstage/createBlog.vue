@@ -53,7 +53,6 @@ export default {
       rules: {
         title: [
           {required: true, message: '博客标题不能为空', trigger: 'blur'},
-          {min: 3, max: 12, message: '长度在 3 到 5 个字符', trigger: 'blur'}
         ],
         label: [
           {required: true, message: '请选择标签', trigger: 'change'}

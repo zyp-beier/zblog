@@ -32,11 +32,14 @@
         <el-table-column
           prop="create_at"
           label="创建时间">
+          <template #default='scope'>
+            {{parseTime(scope.row.create_at)}}
+          </template>
         </el-table-column>
         <el-table-column
           label="操作">
           <template #default="scoped">
-            <el-button type="primary" @click="blogDetail(scoped.row)" size="small" plain>详情</el-button>
+            <el-button type="primary" @click="blogDetail(scoped.row.id)" size="small" plain>详情</el-button>
             <el-button type="warning" @click="blogEdit(scoped.row)" size="small" plain>更改</el-button>
             <el-button type="danger" @click="blogRemove(scoped.row)" size="small" plain>删除</el-button>
           </template>
@@ -48,26 +51,54 @@
 
 <script>
 import backstageTitle from '@/components/backstageTitle.vue'
-import { GET_BLOG_LIST } from '../../api/blog'
+import { GET_BLOG_LIST, REMOVE_BLOG } from '../../api/blog'
+import { reactive, toRefs, onMounted} from 'vue'
+import { parseTime } from '../../../utils/index'
+import { useRouter } from 'vue-router'
 export default {
   components: { backstageTitle },
   name: "blogManagement",
-  data() {
-    return {
-      tableData:[]
-    }
-  },
-  created() {
-    this.getBlogList()
-  },
-  methods: {
-    getBlogList() {
+  setup() {
+    const router = useRouter()   
+    let state = reactive({
+      tableData:[],
+      parseTime,
+    })
+    onMounted(() => {
+      getBlogList();
+    })
+    const getBlogList = () => {
       GET_BLOG_LIST().then(res => {
-        console.log(res)
-        this.tableData = res.result
+        state.tableData = res.result
       }).catch( err => {
         console.log(err)
       })
+    };
+    const blogRemove = (blog) => {
+      let blogId = blog.id
+      REMOVE_BLOG(blogId).then(res => {
+        console.log(res)
+        if (res.status === 200) {
+          getBlogList()
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    const blogDetail = (blogId) => {
+      router.push({
+        name: 'blogDetail',
+        params: {
+          blogId,
+        }
+      })
+    }
+    return {
+      ...toRefs(state),
+      getBlogList,
+      blogRemove,
+      blogDetail,
+      parseTime
     }
   }
 }

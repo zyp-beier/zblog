@@ -4,6 +4,7 @@ const path = require('path')
 const { rename } = require('fs')
 const moment = require('moment')
 
+//获取博客
 router.get('/bloglist', async (ctx, next) => {
   let data
   if (ctx.query) {
@@ -19,7 +20,7 @@ router.get('/bloglist', async (ctx, next) => {
   }
   ctx.body = data
 })
-
+// 获取博客详情
 router.get('/blog/detail', async (ctx, next) => {
   let data
   let blogId = ctx.query.blogId || ''
@@ -28,7 +29,7 @@ router.get('/blog/detail', async (ctx, next) => {
   }
   ctx.body = data
 })
-
+//创建博客
 router.post('/blog/create', async (ctx, next) => {
   let request = ctx.request
   let {title, label, blogContent} = request.body
@@ -54,6 +55,25 @@ router.post('/blog/create', async (ctx, next) => {
     }
   }
 
+})
+
+// 删除博客
+router.delete('/blog/remove', async (ctx, next) => {
+  let request = ctx.request
+  let {blogId} = request.query
+  let data = await query(`DELETE FROM posts WHERE id = ${blogId}`)
+  if (data.status === 200) {
+    ctx.body = {
+      status: 200,
+      message: '删除成功'
+    }
+  } else {
+    ctx.body =  {
+      status: 0,
+      message: '删除失败'
+    }
+  }
+  
 })
 
 module.exports = router
