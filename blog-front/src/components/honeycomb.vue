@@ -1,32 +1,11 @@
 <template>
   <div class="hive">
     <div class="main">
-      <div class="list">
-        <div class="left item" v-for="(item, index) in 5" :key="index" :class="item">
-            <div class="right">
-              <a href="#"><img src="../assets/img/20181124175204_217.jpg" alt=""></a>
-            </div>
-        </div>
-      </div>
-      <div class="list even">
-        <div class="left item" v-for="(item, index) in 4" :key="index" :class="item">
-            <div class="right">
-              <a href="#"><img src="../assets/img/20181124175205_100.jpg" alt=""></a>
-            </div>
-        </div>
-      </div>
-      <div class="list">
-        <div class="left item" v-for="(item, index) in 5" :key="index" :class="item">
-            <div class="right">
-              <a href="#"><img src="../assets/img/20181124175530_602.jpg" alt=""></a>
-            </div>
-        </div>
-      </div>
-      <div class="list even">
-        <div class="left item" v-for="(item, index) in 4" :key="index" :class="item">
-            <div class="right">
-              <a href="#"><img src="../assets/img/20181124175204_217.jpg" alt=""></a>
-            </div>
+      <div :class="['list', {'even': index % 2 === 1} ]" v-for="(item,index) in hiveList" :key="index">
+        <div class="left item" v-for="(ite, ind) in item" :key="ind" >
+          <div class="right">
+            <a href="#"><img src="../assets/img/20181124175204_217.jpg" alt=""></a>
+          </div>
         </div>
       </div>
     </div>
@@ -38,7 +17,12 @@ export default {
   name: "honeycomb",
   data() {
     return {
-      hiveList: 18
+      hiveList: [
+        [1,2,3,4,5],
+        [1,2,3,4],
+        [1,2,3,4,5],
+        [1,2,3,4],
+      ]
     }
   }
 }
@@ -64,7 +48,6 @@ export default {
     width: 100%;
     transform: rotate(-60deg);
     overflow: hidden;
-    /* box-shadow: inset 0 0 0 200px rgb(36 36 36 / 70%); */
   }
   .left .right img {
     width: 100%;
@@ -73,8 +56,6 @@ export default {
     overflow: hidden;
   }
   .item:hover {
-    /* -webkit-box-shadow: inset 0 0 0 200px rgb(36 36 36 / 70%);
-    box-shadow: inset 0 0 0 200px rgb(36 36 36 / 70%); */
     transform: scale(1);
     transition: all .3s ease-in-out;
   }
