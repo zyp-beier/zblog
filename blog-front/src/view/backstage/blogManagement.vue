@@ -85,6 +85,15 @@ export default {
         console.log(err)
       })
     }
+    const blogEdit = (blog) => {
+      let {id: blogId} = blog
+      router.push({
+        name: 'createBlog',
+        params: {
+          blogId
+        }
+      })
+    }
     const blogDetail = (blogId) => {
       router.push({
         name: 'blogDetail',
@@ -97,6 +106,7 @@ export default {
       ...toRefs(state),
       getBlogList,
       blogRemove,
+      blogEdit,
       blogDetail,
       parseTime
     }

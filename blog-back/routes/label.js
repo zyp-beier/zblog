@@ -26,7 +26,7 @@ router.post('/create', async(ctx, next) => {
   // 创建路径
   let filePath = path.join(__dirname, '../public/upload/') + fileName
   try {
-    await rename(file.path, filePath)
+    // await rename(file.path, filePath)
     let date = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     let data = await query(`INSERT INTO labelList (createTime, icon, label, number) VALUES ('${date}', '${fileName}', '${label}', 0)`)
     if (data.status === 200) {

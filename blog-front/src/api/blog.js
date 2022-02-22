@@ -17,7 +17,7 @@ export function CREATE_BLOG(data) {
 }
 
 // 获取博客详情
-export function GET_BLOG_DETAIL(blogId) {
+export function GET_BLOG_DETAIL({blogId}) {
   return request({
     url: '/blog/detail',
     params: {

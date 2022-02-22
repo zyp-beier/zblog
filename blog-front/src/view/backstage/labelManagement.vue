@@ -102,10 +102,11 @@ export default {
     this.parseTime = parseTime
     this.getLabelList()
   },
+  computed: {
+  },
   methods: {
     getLabelList() {
       GET_LABEL_LIST().then(res => {
-        // console.log(res)
         this.tableData = res.result
       }).catch(err => {
         console.log(err)

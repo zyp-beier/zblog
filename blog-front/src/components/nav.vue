@@ -6,7 +6,7 @@
         <div class="nav-item" @click="navClick('aboutUs')"><a href="javascript:void(0)">关于<span class="border"></span></a></div>
         <div class="nav-item" @click="navClick('blog')"><a href="#"><h1>blog</h1><span :class="[ scorllTop < 300 ? 'rotate': 'border']"></span></a></div>
         <div class="nav-item" @click="navClick('skill')"><a href="#">技能<span class="border"></span></a></div>
-        <div class="nav-item" @click="navClick('more')"><a href="#">更多<span class="border"></span></a></div>
+        <div class="nav-item" @click="navClick('blog')"><a href="#">博客<span class="border"></span></a></div>
       </div>
     </div>
   </div>

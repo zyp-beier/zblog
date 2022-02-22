@@ -41,6 +41,12 @@ export default {
   },
   methods: {
     handleNav(e) {
+      if (e === 'blog') {
+        this.$router.push({
+          name: 'blogList'
+        })
+        return
+      }
       let offsetTop = (document.getElementById(e) && document.getElementById(e).offsetTop) || 0
       window.scrollTo({
         top: offsetTop,

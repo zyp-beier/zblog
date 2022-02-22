@@ -3,7 +3,7 @@
     <backstage-title></backstage-title>
     <div class="create-page">
       <div style="margin-bottom: 1rem">
-        <div v-if='true'>
+        <div v-if='!blogId'>
           新建博客
         </div>
         <div v-else>
@@ -20,7 +20,15 @@
           </el-select>
         </el-form-item>
         <el-form-item label="封面图">
-          <input-file @callback='file'></input-file>
+          <!-- <input-file @callback='file'></input-file> -->
+          <el-upload
+            class="avatar-uploader"
+            action="https://localhost/"
+            :show-file-list="false"
+          >
+            <img v-if="!imageUrl" :src="imageUrl" class="avatar" />
+            <el-icon class="avatar-uploader-icon"><plus /></el-icon>
+          </el-upload>
         </el-form-item>
         <el-form-item label="博客内容" prop="blogContent">
           <rich-text ref="richText" @callback='richTextContent'></rich-text>
@@ -36,15 +44,17 @@
 
 <script>
 import backstageTitle from '../../components/backstageTitle.vue'
-import InputFile from '../../components/inputFile.vue';
+// import InputFile from '../../components/inputFile.vue';
 import RichText from '../../components/richText.vue';
 import { GET_LABEL_LIST } from '../../api/label'
-import { CREATE_BLOG } from '../../api/blog'
+import { CREATE_BLOG, GET_BLOG_DETAIL } from '../../api/blog'
 export default {
-  components: { backstageTitle, RichText, InputFile },
+  components: { backstageTitle, RichText },
   name: "createBlog",
   data() {
     return {
+      blogId: '',
+      imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdpic.tiankong.com%2Faz%2Fr0%2FQJ8909247906.jpg&refer=http%3A%2F%2Fdpic.tiankong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648108653&t=f4b1e57c96e1079909d2f987f9a05152',
       labelList: [],
       ruleForm: {
         title: '',
@@ -65,11 +75,23 @@ export default {
   },
   created() {
     this.getLabelList()
+    this.blogId = this.$route.params.blogId || ''
+    if (this.blogId) {
+      this.getBlogDetails(this.blogId)
+    }
   },
   methods: {
+    getBlogDetails(blogId) {
+      GET_BLOG_DETAIL({blogId}).then(res => {
+        console.log(res, 'detailllllll')
+        this.ruleForm = res.result[0]
+        this.ruleForm.label = Number(this.ruleForm.label)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getLabelList() {
       GET_LABEL_LIST().then(res => {
-        console.log(res)
         this.labelList = res.result
       }).catch(err => {
         console.log(err)
@@ -121,4 +143,26 @@ export default {
   .create-page {
     margin: 0 1rem;
   }
+ .avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
 </style>

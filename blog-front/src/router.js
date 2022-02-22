@@ -34,7 +34,7 @@ let routes = [
     component: () => import('@/view/backstage/blogManagement')
   },
   {
-    path: '/createBlog',
+    path: '/createBlog/:blogId?',
     name: 'createBlog',
     component: () => import('@/view/backstage/createBlog')
   },

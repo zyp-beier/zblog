@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import { LOGIN } from '../../api/login'
-import {setToken} from '../../../utils/auth'
 export default {
   name: "login",
   data() {
@@ -58,14 +56,13 @@ export default {
       })
     },
     getLoginInfo() {
-      LOGIN(this.loginForm).then(res => {
+      this.$store.dispatch('login', this.loginForm).then(res => {
         if (res.status === 200) {
-          setToken(res.token, res.time, res.expires)
           this.$router.push({
             name: 'blogManagement'
           })
-          let {nickname, personalityLabel } = res.result[0]
-          let userinfo = JSON.stringify({nickname, personalityLabel })
+          let {nickname, personalityLabel, id: uid } = res.result[0]
+          let userinfo = JSON.stringify({nickname, personalityLabel, uid })
           window.sessionStorage.setItem('userInfo', userinfo)
         } else {
           this.$message.error(res.message)
@@ -184,5 +181,7 @@ export default {
     width: 100%;
     object-fit: cover;
   }
+  .register {
 
+  }
 </style>
