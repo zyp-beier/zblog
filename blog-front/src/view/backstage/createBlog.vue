@@ -19,19 +19,20 @@
             <el-option v-for="item in labelList" :key="item.id" :value="item.id" :label="item.label"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="封面图">
+        <el-form-item label="封面图" prop="coverImg">
           <!-- <input-file @callback='file'></input-file> -->
           <el-upload
-            class="avatar-uploader"
-            action="https://localhost/"
+            accept="image/*"
+            list-type="picture-card"
             :show-file-list="false"
+            :on-change="handleFileChange"
           >
-            <img v-if="!imageUrl" :src="imageUrl" class="avatar" />
-            <el-icon class="avatar-uploader-icon"><plus /></el-icon>
+            <img v-if="ruleForm.coverImg" :src="ruleForm.coverImg" class="avatar" />
+            <el-icon><plus /></el-icon>
           </el-upload>
         </el-form-item>
         <el-form-item label="博客内容" prop="blogContent">
-          <rich-text ref="richText" @callback='richTextContent'></rich-text>
+          <rich-text ref="richText" :blogContent="ruleForm.content" @callback='richTextContent'></rich-text>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="resetForm('ruleForm')">重置</el-button>
@@ -54,7 +55,6 @@ export default {
   data() {
     return {
       blogId: '',
-      imageUrl: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdpic.tiankong.com%2Faz%2Fr0%2FQJ8909247906.jpg&refer=http%3A%2F%2Fdpic.tiankong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648108653&t=f4b1e57c96e1079909d2f987f9a05152',
       labelList: [],
       ruleForm: {
         title: '',
@@ -77,13 +77,12 @@ export default {
     this.getLabelList()
     this.blogId = this.$route.params.blogId || ''
     if (this.blogId) {
-      this.getBlogDetails(this.blogId)
+      this.getBlogDetails(this.blogId) 
     }
   },
   methods: {
     getBlogDetails(blogId) {
       GET_BLOG_DETAIL({blogId}).then(res => {
-        console.log(res, 'detailllllll')
         this.ruleForm = res.result[0]
         this.ruleForm.label = Number(this.ruleForm.label)
       }).catch(err => {
@@ -97,8 +96,18 @@ export default {
         console.log(err)
       })
     },
-    file(file) {
-      this.ruleForm.coverImg = file
+    handleFileChange(file) {
+      let fileTip
+      if (file.size > 1024 * 512 ) {
+        fileTip = '文件大小不能超过0.5MB'
+        console.log(fileTip)
+        return
+      }
+      const reader = new FileReader()
+      reader.readAsDataURL(file.raw);
+      reader.onload = () =>  {
+        this.ruleForm.coverImg = reader.result
+      }
     },
     submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -161,8 +170,9 @@ export default {
   text-align: center;
 }
 .avatar {
-  width: 178px;
-  height: 178px;
+  max-width: 148px;
+  max-height: 148px;
   display: block;
+  margin: 0 auto;
 }
 </style>

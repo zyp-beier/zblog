@@ -12,7 +12,8 @@ export default {
     height: {
       // type: 'Number',
       default: 500
-    }
+    },
+    blogContent: String
   },
   data() {
     return {
@@ -35,6 +36,16 @@ export default {
     editor.config.onchangeTimeout = 500 
     editor.config.onblur = (data) => {
       if(!data) this.$emit('callback', data)
+    }
+  },
+  watch: {
+    blogContent: {
+      handler(val) {
+        if (this.editor) {
+          this.editor.txt.html(val)
+        }
+      },
+      immediate: true
     }
   },
   methods: {

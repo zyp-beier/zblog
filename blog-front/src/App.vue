@@ -1,6 +1,6 @@
 <template>
-<div>
-  <router-view></router-view>
+<div style="height: 100%">
+  <router-view />
 </div>
 </template>
 
@@ -13,11 +13,15 @@ export default {
 
 <style>
 html,body{
+  /* width: 100%;
+  height: 100%; */
   padding: 0;
   margin: 0;
   background-color: #F9F9F9;
 }
 #app {
+  /* width: 100%;
+  height: 100%; */
   padding: 0;
   margin: 0
 }

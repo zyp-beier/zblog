@@ -31,7 +31,8 @@ export default {
     let blogId = router.params.blogId || ''
     if (!blogId) return
     const getBlogDetail = async () => {
-      let { result } = await GET_BLOG_DETAIL(blogId)
+      let { result } = await GET_BLOG_DETAIL({blogId})
+      console.log(result)
       state.blogDetail = result[0]
     }
     getBlogDetail()
