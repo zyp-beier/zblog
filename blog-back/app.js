@@ -5,7 +5,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const koajwt = require('koa-jwt')
-
+// 测试稀疏检出 git sparse-checkout
 const index = require('./routes/index')
 const user = require('./routes/user')
 const blog = require('./routes/blog')
